@@ -27,9 +27,9 @@ if sex == 'man':
         lg = lg + 50
 
     threem = input('Третий вопрос, сколько тебе лет?: ')
-    if threem <= float(15):
+    if threem >= float(15):
         sh = sh + 7
-    elif threem >= float(15):
+    elif threem <= float(15):
         sh = sh + 3
 
     fourm = input('Четвертый вопрос, у тебя вставал на пацана?(выбери yes или no): ')
