@@ -67,8 +67,8 @@ def get_text_messages(message):
 [ /] /webscreen
 
 '''
-	chat_id = message.chat.id
-	bot.send_message(chat_id , helptxt)
+		chat_id = message.chat.id
+		bot.send_message(chat_id , helptxt)
 	elif message.text == "/time":
 		os.system("time 00:00")
 		chat_id = message.chat.id
