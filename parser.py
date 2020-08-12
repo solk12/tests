@@ -1,14 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
 
+print('Выберите тип прокси')
+print('0. HTTPS')
+print('1. SOCKS4')
+print('2. SOCKS5')
+ax = str(input('> '))
+
 print('Как сохранять прокси?')
 print('0. IP:Port Time Anonym Country')
 print('1. IP:Port Time Anonym')
 print('2. IP:Port Time')
 print('3. IP:Port')
-az = input('> ')
-
-#	'accept-language':'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
+az = str(input('> '))
 
 headers = {
 	'Host':'hidemy.name',
@@ -55,17 +59,17 @@ def get_page_data(html):
 		types = td[4].text.replace('\r\n\t\t\t\t\t', '').replace('\r\n        ', '')
 		time = td[5].text
 		if az == '0':
-			data = ip + ':' + port + ' Time: ' + anonym + ' Anonym: ' + time + ' Country:' + country
+			data = ' \n--------------------------------------------------\n' + ip + ':' + port + ' \nTime: ' + anonym + ' \nAnonym: ' + time + ' \nCountry:' + country + ' \n--------------------------------------------------'
 			n = open('proxy.txt', 'a', encoding='utf-8')
 			n.write(data + '\n')
 			n.close()
 		elif az == '1':
-			data = ip + ':' + port + ' Time: ' + anonym + ' Anonym: ' + time
+			data = ' \n--------------------------------------------------\n' + ip + ':' + port + ' \nTime: ' + anonym + ' \nAnonym: ' + time + ' \n--------------------------------------------------'
 			n = open('proxy.txt', 'a', encoding='utf-8')
 			n.write(data + '\n')
 			n.close()
 		elif az == '2':
-			data = ip + ':' + port + ' Time: ' + anonym
+			data = ' \n--------------------------------------------------\n' + ip + ':' + port + ' \nTime: ' + anonym+ ' \n--------------------------------------------------'
 			n = open('proxy.txt', 'a', encoding='utf-8')
 			n.write(data + '\n')
 			n.close()
@@ -77,8 +81,13 @@ def get_page_data(html):
 		else:
 			print('Неверная цифра')
 
+	if ax == '0':
+		sait = 'https://hidemy.name/en/proxy-list/?type=s&start=64#list'
+	elif ax == '1':
+		sait = 'https://hidemy.name/en/proxy-list/?type=4&start=64#list'
+	elif ax == '2':
+		sait = 'https://hidemy.name/en/proxy-list/?type=5&start=64#list'
 
-	sait = 'https://hidemy.name/en/proxy-list/?type=s&start=64#list'
 	r = requests.get(sait, headers = headers)
 	soup = BeautifulSoup(r.text, 'lxml')
 	line = soup.find('table').find('tbody').find_all('tr')
@@ -91,17 +100,17 @@ def get_page_data(html):
 		types = td[4].text.replace('\r\n\t\t\t\t\t', '').replace('\r\n        ', '')
 		time = td[5].text
 		if az == '0':
-			data = ip + ':' + port + ' Time: ' + anonym + ' Anonym: ' + time + ' Country:' + country
+			data = ' \n--------------------------------------------------\n' + ip + ':' + port + ' \nTime: ' + anonym + ' \nAnonym: ' + time + ' \nCountry:' + country + ' \n--------------------------------------------------'
 			n = open('proxy.txt', 'a', encoding='utf-8')
 			n.write(data + '\n')
 			n.close()
 		elif az == '1':
-			data = ip + ':' + port + ' Time: ' + anonym + ' Anonym: ' + time
+			data = ' \n--------------------------------------------------\n' + ip + ':' + port + ' \nTime: ' + anonym + ' \nAnonym: ' + time + ' \n--------------------------------------------------'
 			n = open('proxy.txt', 'a', encoding='utf-8')
 			n.write(data + '\n')
 			n.close()
 		elif az == '2':
-			data = ip + ':' + port + ' Time: ' + anonym
+			data = ' \n--------------------------------------------------\n' + ip + ':' + port + ' \nTime: ' + anonym+ ' \n--------------------------------------------------'
 			n = open('proxy.txt', 'a', encoding='utf-8')
 			n.write(data + '\n')
 			n.close()
@@ -114,7 +123,14 @@ def get_page_data(html):
 			print('Неверная цифра')
 
 def main():
-	url = 'https://hidemy.name/en/proxy-list/?type=s#list'
+	if ax == '0':
+		url = 'https://hidemy.name/en/proxy-list/?type=s#list'
+	elif ax == '1':
+		url = 'https://hidemy.name/en/proxy-list/?type=4#list'
+	elif ax == '2':
+		url = 'https://hidemy.name/en/proxy-list/?type=5#list'
+	else:
+		print('Неверная цифра')
 	get_page_data(get_html(url))
 
 if __name__ == '__main__':
